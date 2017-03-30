@@ -1,5 +1,5 @@
-require 'pry'
 require 'set'
+require 'benchmark'
 
 class DigitsToWordConverter
 
@@ -45,7 +45,7 @@ class DigitsToWordConverter
   end
 
   def dictionary
-    Set.new(File.read('../dictionary.txt').downcase.split("\n"))
+    @dictionary ||= Set.new(File.read('../dictionary.txt').downcase.split("\n"))
   end
 
   def process_combinations(combinations)
@@ -76,4 +76,4 @@ class DigitsToWordConverter
   end
 end
 
-DigitsToWordConverter.new.parse('6686787825')
+p Benchmark.measure{ DigitsToWordConverter.new.parse('6686787825') }
