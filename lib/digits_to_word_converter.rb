@@ -49,10 +49,16 @@ class DigitsToWordConverter
   end
 
   def process_combinations(combinations)
+    output = []
     combinations.each do |combination|
+      arr = []
       words = get_all_matched_words(combination, dictionary)
-      p words
+      arr.push(words) unless words.include?([])
+      output.concat(arr)
     end
+    mapped_words = []
+    output.each { |f| mapped_words.concat(f[0].product(*f[1..-1])) }
+    p mapped_words
   end
 
   def get_all_matched_words(combination, dictionary)
